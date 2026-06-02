@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Task Tracker</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Pomodoro Task Tracker</h1>
+
+    <section class="timer-card">
+      <h2 id="mode">Focus Time</h2>
+      <p id="timer">25:00</p>
+
+      <div class="buttons">
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </section>
+
+    <section class="task-card">
+      <h2>Tasks</h2>
+
+      <div class="task-input">
+        <input id="taskInput" type="text" placeholder="Add a task..." />
+        <button id="addTaskBtn">Add</button>
+      </div>
+      <p id="taskCounter">Completed: 0 / 0</p>
+      <ul id="taskList"></ul>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
