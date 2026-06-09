@@ -6,6 +6,13 @@ A simple, modern Pomodoro timer with task management and productivity tracking.
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Version](https://img.shields.io/badge/Version-1.0.0-orange)
 🌐 **[Live Demo](https://dilaytarhan.github.io/pomodoro-task-tracker/)** | [Features](#features) | [Quick Start](#quick-start) | [Contributing](#contributing)
+## Preview
+
+### Dark Mode
+![Focus Flow - Dark Mode](screenshots/dark-mode.png)
+
+### Light Mode  
+![Focus Flow - Light Mode](screenshots/light-mode.png)
 
 
 ## Features
