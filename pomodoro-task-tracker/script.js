@@ -7,6 +7,27 @@ const MODES = {
   long:  { label: 'Long Break',  settingKey: 'longBreakDuration',   default: 15 },
 };
 
+// ─── AUDIO FILE SOUNDS ───────────────────────────────────────────────────────
+function playAudioFile(filename) {
+  if (!settings.soundEnabled) return;
+  try {
+    const audio = document.getElementById(filename);
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch(err => console.log('Audio play failed:', err));
+    }
+  } catch (err) {
+    console.log('Audio error:', err);
+  }
+}
+
+function playTimerFinishSound() {
+  playAudioFile('timerFinishSound');
+}
+
+function playButtonClickSound() {
+  playAudioFile('buttonClickSound');
+}
 // ─── LOAD PERSISTED STATE ────────────────────────────────────────────────────
 let settings = {
   focusDuration:      25,
@@ -147,7 +168,7 @@ function onTimerComplete(skipped) {
     stats.focusMinutes += settings.focusDuration;
     saveStats();
     renderStatsDisplay();
-    playSound('complete');
+    playTimerFinishSound();
     sendNotification('Focus session complete!', 'Time for a break. Well done!');
 
     if (sessionNum > settings.sessionsBeforeLong) {
@@ -160,7 +181,7 @@ function onTimerComplete(skipped) {
     if (settings.autoStartBreaks) setTimeout(startTimer, 600);
 
   } else if ((mode === 'short' || mode === 'long') && !skipped) {
-    playSound('break');
+    playTimerFinishSound();
     sendNotification('Break over!', "Ready to focus again?");
     setMode('focus');
     if (settings.autoStartFocus) setTimeout(startTimer, 600);
@@ -502,12 +523,22 @@ function showToast(msg) {
 }
 
 // ─── EVENT LISTENERS ─────────────────────────────────────────────────────────
-startBtn.addEventListener('click', () => running ? pauseTimer() : startTimer());
-resetBtn.addEventListener('click', resetTimer);
-skipBtn.addEventListener('click', skipTimer);
+startBtn.addEventListener('click', () => {
+playButtonClickSound();
+running ? pauseTimer() : startTimer();
+});
+resetBtn.addEventListener('click', () => {
+  playButtonClickSound();
+  resetTimer();
+});
+skipBtn.addEventListener('click', () => {
+  playButtonClickSound();
+  skipTimer();
+});
 
 modeTabs.forEach(tab => {
   tab.addEventListener('click', () => {
+    playButtonClickSound();
     if (tab.dataset.mode !== mode) {
       pauseTimer();
       setMode(tab.dataset.mode);
@@ -516,6 +547,7 @@ modeTabs.forEach(tab => {
 });
 
 addTaskBtn.addEventListener('click', () => {
+  playButtonClickSound();
   addTask(taskInput.value, prioritySelect.value);
   taskInput.value = '';
   taskInput.focus();
