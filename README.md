@@ -1,13 +1,12 @@
 # Focus Flow — Pomodoro Task Tracker 🍅
 
-<<<<<<< HEAD
-
-=======
 A simple, modern Pomodoro timer with task management and productivity tracking.
 
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Version](https://img.shields.io/badge/Version-1.0.0-orange)
+🌐 **[Live Demo](https://dilaytarhan.github.io/pomodoro-task-tracker/)** | [Features](#features) | [Quick Start](#quick-start) | [Contributing](#contributing)
+
 
 ## Features
 
@@ -77,6 +76,7 @@ A simple, modern Pomodoro timer with task management and productivity tracking.
 - Try a different browser
 
 ## Project Structure
+```
 pomodoro-task-tracker/
 ├── index.html
 ├── script.js
@@ -86,6 +86,7 @@ pomodoro-task-tracker/
 │   └── button-click.wav
 ├── LICENSE
 └── README.md
+```
 ## Browser Support
 
 Chrome, Firefox, Safari, Edge ✅
@@ -114,4 +115,3 @@ MIT License - [View License](LICENSE)
 ---
 
 Made with ❤️ for staying focused
->>>>>>> ecf2e7f (Simplify README.md)
