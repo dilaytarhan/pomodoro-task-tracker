@@ -462,7 +462,38 @@ function populateSettingsUI() {
   sSound.checked            = settings.soundEnabled;
   sNotifications.checked    = settings.notificationsEnabled;
 }
+// ─── CSV EXPORT ──────────────────────────────────────────────────────────────
+function exportStatsAsCSV() {
+  if (stats.focusMinutes === 0 && tasks.length === 0) {
+    showToast('No data statisticsto export yet');
+    return;
+  }
+  const headers = ['Metric', 'Value'];
+  const rows = [
+    ['Date', stats.date],
+    ['Focus Minutes', stats.focusMinutes],
+    ['Sessions Completed', stats.sessions],
+    ['Tasks Done', stats.tasksDone],
+    ['Day Streak', stats.streak]
+  ];
+  //Format CSV
+  let csv = headers.join(',') + '\n';
+  rows.forEach(row => {
+    csv += row.map(cell => '"${cell}"').join(',') + '\n';
+  });
+  //Create download link
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'focus-flow-stats-${stats.date}.csv';
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+  document.nodeType.removeChild(a);
 
+  showToast('Statistics exported as CSV'); 
+}
 function saveSettings() {
   settings = {
     focusDuration:        Math.max(1, parseInt(sFocusDuration.value)      || 25),
@@ -588,13 +619,17 @@ sNotifications.addEventListener('change', () => {
     });
   }
 });
+const exportStatsBtn = document.getElementById('exportStatsBtn');
+if (exportStatsBtn) {
+  exportStatsBtn.addEventListener('click', exportStatsAsCSV);
+}
 
 resetStatsBtn.addEventListener('click', () => {
   if (confirm('Reset today\'s statistics?')) {
     stats = { date: new Date().toDateString(), focusMinutes: 0, sessions: 0, tasksDone: 0, streak: stats.streak };
     saveStats();
     renderStatsDisplay();
-    showToast('Stats reset');
+    showToast('Statistics reset');
   }
 });
 
